@@ -1,41 +1,16 @@
 import React from "react";
+import {useState} from 'react'
+import {questions} from './questions'
+import Question from "./Question";
 
-type NameTagProps ={
-  name: string;
-}
-const NameTag = ({name}:NameTagProps) => {
+
+const Application = () => {
   return (
     <main>
-      <header>
-        <h1>Hello</h1>
-        <p>My Name Is</p>
-      </header>
-      <section className="display-name">
-        <p>{name}</p>
-      </section>
-      <footer />
+      {questions.map(quest => (
+        <Question question={quest.question} answer={quest.answer} key={quest.id} />
+      ))}
     </main>
-  );
-};
-
-// box
-type BoxProps = {children: React.ReactNode}
-const Box = ({children}: BoxProps) => {
-  return (
-    <section style={{padding: "1em", border:"5px solid purple"}}>
-      {children}
-    </section>
-  )
-}
-
-function Application(){
-  return (
-    <>
-      <NameTag name="Nika"/>
-      <Box>
-        <h1>hello</h1>
-      </Box>
-    </>
   )
 }
 export default Application;
