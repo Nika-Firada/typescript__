@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import Counter from './Counter'
 
 export class App extends Component {
   render() {
     return (
-      <div>App</div>
+      <Counter incident='Coffee Spill'/>
     )
   }
 }
