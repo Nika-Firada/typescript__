@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/lodash.shuffle": "^4.2.7",
+    "lodash.shuffle": "^4.2.0",
+    "react-shuffle": "^2.1.0"
+  }
+}
