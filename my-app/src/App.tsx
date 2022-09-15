@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useReducer} from 'react';
+import Calculation from './Calculation'
+import Calculator from './Calculator'
+import { addPizzaNeededToPizzaData, initialState, PizzaState } from './pizza';
+
+
+const reducer = (state:PizzaState,action:any)=>{
+  if(action.type === 'UPDATE_NUMBER_OF_PEOPLE'){
+    return addPizzaNeededToPizzaData({
+      ...state,
+      numberOfPeople: action.payload
+    })
+  }
+  if(action.type === 'UPDATE_SLICES_PER_PERSON'){
+    return addPizzaNeededToPizzaData({
+      ...state,
+      slicesPerPerson: action.payload
+    })
+  }
+  if(action.type === 'UPDATE_SLICES_PER_PIE'){
+    return addPizzaNeededToPizzaData({
+      ...state,
+      slicesPerPie: action.payload
+    })
+  }
+  return state;
+};
 
 function App() {
+  const [state,dispatch] = useReducer(reducer,initialState)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <main className="calcurator">
+      <header>
+        <h1>Pizza Calcurator</h1>
+        <Calculation count={state.pizzaNeeded}/>
+        <Calculator state={state} dispatch={dispatch}/>
       </header>
-    </div>
+    </main>
   );
 }
 
