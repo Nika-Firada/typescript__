@@ -1,25 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useReducer } from 'react';
+
+type BasicCounterAction = {
+  type: 'INCREMENT' | 'DECREMENT';
+};
+
+type SetCounterAction = {
+  type: 'SET';
+  payload: number;
+};
+
+type BetterAction = BasicCounterAction | SetCounterAction;
+
+// type CounterAction = {
+//   type: 'INCREMENT' | 'DECREMENT' | 'SET';
+//   payload?: number;
+// };
+
+type CounterState = {
+  value: number;
+};
+
+const reducer = (state: CounterState, action: BetterAction) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { value: state.value + 1 };
+    case 'DECREMENT':
+      return { value: state.value - 1 };
+    case 'SET':
+      return { value: action.payload };
+  }
+};
+
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, { value: 0 });
+  const increment = () => dispatch({ type: 'INCREMENT' });
+  const decrement = () => dispatch({ type: 'DECREMENT' });
+  const reset = () => dispatch({ type: 'SET', payload: 0 });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="Counter">
+      <h1>Days Since Last Incident</h1>
+      <p className="count">{state.value}</p>
+      <section className="controls">
+        <button onClick={increment}>Increment</button>
+        <button onClick={reset}>Reset</button>
+        <button onClick={decrement}>Decrement</button>
+      </section>
+    </main>
   );
 }
 
