@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { ColorInputs } from './ColorInputs';
+import { ColorSliders } from './ColorSliders';
+import { ColorSwatch } from './ColorSwatch';
+import { reducer } from './reducer';
+import { ThemeContext } from './theme-context';
+import { toRGB } from './utilities';
+
 
 function App() {
+  const themes = useContext(ThemeContext)
+  const [rgb, dispatch] = React.useReducer(reducer, {
+    red: 0,
+    green: 0,
+    blue: 0
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main style={{ 
+      borderColor: toRGB(rgb),
+      ...themes.dark
+     }}>
+      <ColorSwatch {...rgb} />
+      <ColorInputs {...rgb} />
+      <ColorSliders {...rgb} dispatch={dispatch} />
+    </main>
   );
 }
 
