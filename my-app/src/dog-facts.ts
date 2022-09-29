@@ -6,7 +6,6 @@ export type DogFactType = {
   fact: string;
 };
 
-// These are here just in case the API goes down. 🤷
 
 export const fetchDogFacts = (n: number) => {
   return Promise.resolve(data).then((facts) => shuffle(facts).slice(0, n));
