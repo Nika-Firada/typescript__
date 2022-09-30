@@ -8,7 +8,6 @@ const RepoCard = ({ repo }: { repo: IRepo }) => {
 
   const {addFav, removeFav} = useActions()
   const {favourites} = useAppSelector(state => state.github)
-
   const [isFav,setIsFav] = useState(favourites.includes(repo.html_url))
 
   const addToFav = (e:React.MouseEvent<HTMLButtonElement>) =>{
@@ -21,6 +20,8 @@ const RepoCard = ({ repo }: { repo: IRepo }) => {
     removeFav(repo.html_url)
     setIsFav(false)
   }
+
+
   return (
     <div className="border py-3 px-5 rounded mb-2 hover:shadow-md hover:bg-gray-100 transition-all">
       <a href={repo.html_url} target="_blank">

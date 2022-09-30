@@ -14,7 +14,7 @@ const initialState: GithubState ={
 export const githubSlice = createSlice({
     name: 'github',
     initialState,
-    reducers: {
+    reducers: { //ავღწერთ როგორ იცვლება მდგომარეობა
         addFav(state, action:PayloadAction<string>) {
             state.favourites.push(action.payload)
             localStorage.setItem(LS_FAV_KEY, JSON.stringify(state.favourites))
@@ -27,4 +27,4 @@ export const githubSlice = createSlice({
 })
 
 export const githubActions = githubSlice.actions
-export const githubReducer = githubSlice.reducer
+export const githubReducer = githubSlice.reducer // რედუსერს story ში შეგვყვავს

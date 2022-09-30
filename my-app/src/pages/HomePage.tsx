@@ -8,24 +8,24 @@ import {
 
 const HomePage = () => {
   const [search, setSearch] = useState("");
-  const debounced = useDebounce(search);
+  const debounced = useDebounce(search); // custom hook
   const [dropDown, setDropDown] = useState(false);
+
+  // ამ ჰუკს მოჰყვება თავისი მონაცემები
   const { isLoading, isError, data } = useSearchUsersQuery(debounced, {
-    skip: debounced.length < 2,
-    refetchOnFocus: true,
+    skip: debounced.length < 2, // თავიდან ერორი რომ არ ამოაგდოს
+    refetchOnFocus: true, //საიტიზე რომ ბრუნდები, თავიდან გააგზავნოს რექუესტი
   });
 
-  const [fetchRepos, { isLoading: areReposLoading, data: repos }] =
-    useLazyGetUserReposQuery();
-
-  useEffect(() => {
-    setDropDown(debounced.length > 2 && data?.length! > 0);
-  }, [debounced, data]);
-
+  const [fetchRepos, { isLoading: areReposLoading, data: repos }] = useLazyGetUserReposQuery();
   const clickHandler = (username: string) => {
     fetchRepos(username);
     setDropDown(false)
   };
+
+  useEffect(() => {
+    setDropDown(debounced.length > 2 && data?.length! > 0);
+  }, [debounced, data]);
 
   return (
     <div className="flex justify-center pt-10 mx-auto h-screen w-screen">
@@ -40,6 +40,7 @@ const HomePage = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        
         {dropDown && (
           <ul className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] shadow-md bg-white overflow-y-scroll">
             {isLoading && <p className="text-center">Loading...</p>}
@@ -54,6 +55,7 @@ const HomePage = () => {
             ))}
           </ul>
         )}
+        
         <div className="conatiner">
           {areReposLoading && (
             <p className="text-center">Repos are Loading...</p>

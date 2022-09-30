@@ -3,8 +3,8 @@ import { useAppSelector } from "../hooks/redux";
 
 const FavPage = () => {
   const { favourites } = useAppSelector((state) => state.github);
-  if (favourites.length === 0)
-    return <p className="text-center">No Items...</p>;
+  if (favourites.length === 0) return <p className="text-center">No Items...</p>
+
   return (
     <div className="flex justify-center pt-10 mx-auto h-screen w-screen">
       <ul className="list-none">
